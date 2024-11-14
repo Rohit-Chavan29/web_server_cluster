@@ -1,0 +1,11 @@
+- name: Deploy Web Server Cluster
+  hosts: nginx_servers
+  become: true
+  roles:
+    - nginx
+
+- name: Configure Load Balancer
+  hosts: load_balancer
+  become: true
+  roles:
+    - loadbalancer

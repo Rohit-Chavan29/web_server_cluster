@@ -1,0 +1,10 @@
+<!-- roles/nginx/templates/index.html.j2 -->
+<html>
+<head>
+    <title>Welcome to Nginx Server</title>
+</head>
+<body>
+    <h1>Welcome to {{ ansible_hostname }}!</h1>
+    <p>This is web server hosted at {{ ansible_default_ipv4.address }}</p>
+</body>
+</html>

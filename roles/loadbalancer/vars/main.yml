@@ -1,0 +1,3 @@
+---
+# vars file for loadbalancer
+haproxy_maxconn: 4096

@@ -1,0 +1,24 @@
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    maxconn 4096
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    timeout connect 5000ms
+    timeout client  50000ms
+    timeout server  50000ms
+
+frontend http_front
+    bind *:80
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+{% for server in groups['nginx_servers'] %}
+    server {{ server }} {{ hostvars[server]['ansible_host'] }}:80 check
+{% endfor %}

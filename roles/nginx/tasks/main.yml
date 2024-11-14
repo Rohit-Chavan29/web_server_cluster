@@ -1,0 +1,32 @@
+---
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Configure NGINX
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    mode: '0644'
+  notify: restart nginx
+
+- name: Create Directory
+  file:
+    path: /var/www/html/
+    state: directory
+    mode: '0755'
+
+
+- name: serve content
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    mode: '0644'
+  notify: restart nginx
+
+- name: Enable and start NGINX service
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+    state: started
